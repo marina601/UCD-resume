@@ -309,7 +309,7 @@ footer {
     margin: 0;
 }
 
-.timeline-item:bofore {
+.timeline-item:before {
     content: attr(data-dates);
     position: absolute;
     left: 2.5em;
