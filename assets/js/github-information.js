@@ -1,5 +1,7 @@
-function userInformationHTML(user) {
-    return `
+function userInformationHTML(user) { //functiion for user information we call this function on line 39
+    //user is an object that returns from github api which contain many keys and values
+    //we create a template 
+    return ` 
     <h2>${user.name}
       <span class="small-name">
         (@<a href="${user.html_url}" target="_blank">${user.login}</a>)
@@ -32,11 +34,14 @@ function fetchGitHubInformation(event) {
     // displaying a loader inside the function 
 
     $.when(//making a promise 
-        $.getJSON(`https://api.github.com/users/${username}`)// when we get api from github
+        $.getJSON(`https://api.github.com/users/${username}`),// when we get api from github
+        $.getJSON(`https://api.github.com/users/${username}/repos`) // will list repos for the user 
     ).then(
-        function(response) { //then display the response 
-            var userData = response;
+        function(firstResponse, secondResponse) { //then display the response 
+            var userData = firstResponse[0]; //when 2 calls are made when() method will display array
+            var repoData = secondResponse[0]; //so we need to add index to the responses
             $("#gh-user-data").html(userInformationHTML(userData)); //in user-data div we display the userData
+            $("#gh-repo-data").html(repoInformationHTML(repoData)); //set the return for repoData, function will be above
         }, function(errorResponse) {
             if(errorResponse.status === 404) { //if error status 404 then we display a message 
                 $("#gh-user-data").html(`<h2>No info found for user ${username}</h2>`);
