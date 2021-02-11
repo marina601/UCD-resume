@@ -17,6 +17,30 @@ function userInformationHTML(user) { //functiion for user information we call th
     </div>`;
 }
 
+function repoInformationHTML(repos) {
+    //returns the array therefore length to check if the array is empty then message displayed
+    if ( repos.length === 0) {
+        return `<div class="clearfix repo-list">No repos!</div>`;
+    }
+    // if the data is returned create a variable, map method works like a forEach loop but returns an array with results
+    //list item with an anchor tag 
+    var listItemsHTML = repos.map(function(repo){
+        return `<li>
+          <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+        </li>`;
+
+    });
+   // return the div with a heading in <p> join method with a new line
+    return `<div class="clearfix repo-list">
+             <p>
+               <strong>Repo List:</strong>
+             </p>
+             <ul>
+               ${listItemsHTML.join("\n")}
+             </ul>
+    </div>`;
+}
+
 
 function fetchGitHubInformation(event) {
 
