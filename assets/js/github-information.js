@@ -43,6 +43,9 @@ function repoInformationHTML(repos) {
 
 
 function fetchGitHubInformation(event) {
+    $("#gh-user-data").html("");
+    $("#gh-repo-data").html("");
+    //settin their HTML content to an empty string has the effect on emptying these divs
 
 //calling the function in the input field with event argument
     var username = $("#gh-username").val(); //username selected with id and its value
@@ -79,6 +82,9 @@ function fetchGitHubInformation(event) {
 
     
 }
+
+$(document).ready(fetchGitHubInformation);
+//octocat profile loaded as soon as the page refreshed 
 
 
 
