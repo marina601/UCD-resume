@@ -72,6 +72,11 @@ function fetchGitHubInformation(event) {
         }, function(errorResponse) {
             if(errorResponse.status === 404) { //if error status 404 then we display a message 
                 $("#gh-user-data").html(`<h2>No info found for user ${username}</h2>`);
+            } else if(errorResponse.status === 403){ //if the time limit is status 403 then 
+                //the header provided by github to let us know when we can use api again and *1000 to present the data
+                var resetTime = new Date(errorResponse.getResponseHeader('X-RateLimit-Reset')*1000);
+                $("#gh-user-data").html(`<h4>Too many requests, please wait until ${resetTime.toLocaleTimeString()}</h4>`);
+                //we create a message displayed toLocaleTimeString will pick up location from the local browser and display the time
             } else { //otherwise we print the error and display a the message in h2
                 console.log(errorResponse);
                 $("#gh-user-data").html(
